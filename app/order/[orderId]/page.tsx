@@ -300,7 +300,7 @@ export default function OrderTrackingPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-6" />
+          <div className="w-12 h-12 border-4 border-theme-primary border-t-transparent rounded-full animate-spin mx-auto mb-6" />
           <p className="text-gray-600 text-lg font-medium">Loading order details...</p>
         </div>
       </div>
@@ -316,7 +316,7 @@ export default function OrderTrackingPage() {
           </div>
           <h1 className="text-xl font-bold text-gray-900 mb-2">Order Not Found</h1>
           <p className="text-gray-600 mb-8">{error || "The order you're looking for doesn't exist"}</p>
-          <Button onClick={handleBackNavigation} className="bg-green-600 hover:bg-green-700 text-white">
+          <Button onClick={handleBackNavigation} className="bg-theme-primary hover:bg-theme-primary/90 text-white">
             Go Back to Menu
           </Button>
         </div>
@@ -348,14 +348,14 @@ export default function OrderTrackingPage() {
       <div className="p-4 space-y-6">
         {/* Delivery Estimate */}
         {!isDelivered && order.tracking?.estimated_delivery_time && (
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
+          <div className="bg-theme-primary/5 border border-theme-primary/20 rounded-2xl p-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-theme-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-theme-primary" />
               </div>
-              <h2 className="text-2xl font-bold text-green-800 mb-2">{timeRemaining}</h2>
-              <p className="text-green-700 font-medium">Estimated delivery time</p>
-              <p className="text-sm text-green-600 mt-1">
+              <h2 className="text-2xl font-bold text-theme-primary mb-2">{timeRemaining}</h2>
+              <p className="text-theme-primary/80 font-medium">Estimated delivery time</p>
+              <p className="text-sm text-theme-primary/70 mt-1">
                 Expected by{" "}
                 {new Date(order.tracking.estimated_delivery_time).toLocaleTimeString([], {
                   hour: "2-digit",
@@ -382,9 +382,9 @@ export default function OrderTrackingPage() {
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center mr-4 transition-all duration-300 ${
                         isCompleted
-                          ? "bg-green-600 text-white scale-110"
+                          ? "bg-theme-primary text-white scale-110"
                           : isCurrent
-                            ? "bg-green-100 text-green-600 border-2 border-green-600 animate-pulse"
+                            ? "bg-theme-primary/10 text-theme-primary border-2 border-theme-primary animate-pulse"
                             : "bg-gray-100 text-gray-400"
                       }`}
                     >
@@ -405,7 +405,7 @@ export default function OrderTrackingPage() {
 
                       {/* Show timestamp for completed steps */}
                       {isCompleted && order.status_history.length > 0 && (
-                        <p className="text-xs text-green-600 mt-1">
+                        <p className="text-xs text-theme-primary mt-1">
                           {(() => {
                             const historyItem = order.status_history.find((h) => h.status.name === step.key)
                             return historyItem
@@ -423,7 +423,7 @@ export default function OrderTrackingPage() {
                   {/* Progress line */}
                   {index < statusSteps.length - 1 && (
                     <div className="absolute left-9 mt-12 w-0.5 h-8 bg-gray-200">
-                      {isCompleted && <div className="w-full h-full bg-green-600 transition-all duration-500" />}
+                      {isCompleted && <div className="w-full h-full bg-theme-primary transition-all duration-500" />}
                     </div>
                   )}
                 </div>
@@ -438,8 +438,8 @@ export default function OrderTrackingPage() {
             <h3 className="text-lg font-bold text-gray-900 mb-4">Your Driver</h3>
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                  <span className="text-green-600 font-bold text-lg">{order.tracking.driver_name.charAt(0)}</span>
+                <div className="w-12 h-12 bg-theme-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <span className="text-theme-primary font-bold text-lg">{order.tracking.driver_name.charAt(0)}</span>
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">{order.tracking.driver_name}</p>
@@ -510,7 +510,7 @@ export default function OrderTrackingPage() {
             </div>
             <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-100">
               <span>Total</span>
-              <span className="text-green-600">${order.total.toFixed(2)}</span>
+              <span className="text-theme-primary">${order.total.toFixed(2)}</span>
             </div>
           </div>
         </div>

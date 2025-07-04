@@ -434,13 +434,13 @@ export function MapAddressSelector({ onAddressSelect, initialAddress }: MapAddre
       </div>
 
       {selectedAddress && (
-        <div className="bg-green-50 p-3 rounded-lg border border-green-200 flex items-start">
-          <MapPin className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0 mr-2" />
+        <div className="bg-theme-primary/5 p-3 rounded-lg border border-theme-primary/20 flex items-start">
+          <MapPin className="h-5 w-5 text-theme-primary mt-0.5 flex-shrink-0 mr-2" />
           <div className="w-full">
-            <p className="font-medium text-green-800">Selected location</p>
+            <p className="font-medium text-theme-primary">Selected location</p>
             
             {/* Detailed address information */}
-            <div className="text-sm text-green-700 space-y-1">
+            <div className="text-sm text-theme-primary/80 space-y-1">
               {/* Street address */}
               {addressDetails.streetAddress && (
                 <p className="font-medium">{addressDetails.streetAddress}</p>

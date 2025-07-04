@@ -300,7 +300,7 @@ export default function MenuItemPage({ params }: { params: Promise<{ itemId: str
                     <span className="text-lg text-gray-400 line-through">
                       ${(item.original_price! * quantity).toFixed(2)}
                     </span>
-                    <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                    <span className="text-sm font-medium text-theme-primary bg-theme-primary/10 px-2 py-1 rounded-full">
                       Save ${getSavings().toFixed(2)}
                     </span>
                   </>
