@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import React, { createContext, useContext, useEffect, useState, useCallback, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { ThemeConfig, ThemeContextType, RestaurantTheme } from '@/types/theme'
 import { 
@@ -18,10 +18,10 @@ interface ThemeProviderProps {
   children: React.ReactNode
   restaurantTheme?: RestaurantTheme | null
   restaurantId?: string
+  searchParams?: URLSearchParams | null
 }
 
-export function ThemeProvider({ children, restaurantTheme, restaurantId }: ThemeProviderProps) {
-  const searchParams = useSearchParams()
+function ThemeProviderCore({ children, restaurantTheme, restaurantId, searchParams }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ThemeConfig>(DEFAULT_THEME)
   const [isPreviewMode, setIsPreviewMode] = useState(false)
 
@@ -97,6 +97,48 @@ export function ThemeProvider({ children, restaurantTheme, restaurantId }: Theme
     <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
+  )
+}
+
+// Component that handles useSearchParams with Suspense
+function SearchParamsProvider({ children, restaurantTheme, restaurantId }: Omit<ThemeProviderProps, 'searchParams'>) {
+  const searchParams = useSearchParams()
+  
+  return (
+    <ThemeProviderCore 
+      restaurantTheme={restaurantTheme} 
+      restaurantId={restaurantId}
+      searchParams={searchParams}
+    >
+      {children}
+    </ThemeProviderCore>
+  )
+}
+
+// Fallback component for when search params aren't available
+function SearchParamsFallback({ children, restaurantTheme, restaurantId }: Omit<ThemeProviderProps, 'searchParams'>) {
+  return (
+    <ThemeProviderCore 
+      restaurantTheme={restaurantTheme} 
+      restaurantId={restaurantId}
+      searchParams={null}
+    >
+      {children}
+    </ThemeProviderCore>
+  )
+}
+
+export function ThemeProvider({ children, restaurantTheme, restaurantId }: Omit<ThemeProviderProps, 'searchParams'>) {
+  return (
+    <Suspense fallback={
+      <SearchParamsFallback restaurantTheme={restaurantTheme} restaurantId={restaurantId}>
+        {children}
+      </SearchParamsFallback>
+    }>
+      <SearchParamsProvider restaurantTheme={restaurantTheme} restaurantId={restaurantId}>
+        {children}
+      </SearchParamsProvider>
+    </Suspense>
   )
 }
 
