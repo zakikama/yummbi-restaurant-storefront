@@ -113,8 +113,8 @@ export function StripePaymentForm({
             cardError 
               ? 'border-red-300 focus-within:border-red-500' 
               : isCardComplete 
-                ? 'border-theme-primary/30 focus-within:border-theme-primary'
-                : 'border-gray-200 focus-within:border-theme-primary'
+                ? 'border-green-300 focus-within:border-green-500'
+                : 'border-gray-200 focus-within:border-blue-500'
           }`}>
             <CardElement
               options={cardElementOptions}
@@ -123,7 +123,7 @@ export function StripePaymentForm({
           </div>
           
           {isCardComplete && !cardError && (
-            <div className="mt-3 flex items-center text-theme-primary text-sm">
+            <div className="mt-3 flex items-center text-green-600 text-sm">
               <CreditCard className="w-4 h-4 mr-1" />
               Card information is valid ✓
             </div>
