@@ -29,7 +29,7 @@ export function MenuItemGlovo({ item, layout = 'list', showDescription = true, i
   const { state, dispatch } = useCart()
   const [isAdding, setIsAdding] = useState(false)
 
-  const cartItem = state.items.find((cartItem) => cartItem.id === item.id)
+  const cartItem = state.items?.find((cartItem) => cartItem.id === item.id)
   const quantity = cartItem?.quantity || 0
 
   const addToCart = () => {

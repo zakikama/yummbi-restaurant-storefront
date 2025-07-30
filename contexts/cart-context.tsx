@@ -99,15 +99,29 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 }
 
 function getInitialCartState(): CartState {
+  const defaultState = { items: [], total: 0, itemCount: 0, isOpen: false }
+  
   if (typeof window !== "undefined") {
     const stored = localStorage.getItem("cart")
     if (stored) {
       try {
-        return JSON.parse(stored)
-      } catch {}
+        const parsed = JSON.parse(stored)
+        // Validate that the parsed data has the expected structure
+        if (parsed && Array.isArray(parsed.items)) {
+          return {
+            items: parsed.items || [],
+            total: parsed.total || 0,
+            itemCount: parsed.itemCount || 0,
+            isOpen: false // Always start with cart closed
+          }
+        }
+      } catch {
+        // If parsing fails, clear the corrupted data
+        localStorage.removeItem("cart")
+      }
     }
   }
-  return { items: [], total: 0, itemCount: 0, isOpen: false }
+  return defaultState
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
